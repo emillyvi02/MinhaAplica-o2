@@ -1,4 +1,4 @@
-package com.example.myapplication.ui.screen
+package com.example.myapplication.screen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -32,21 +32,21 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.myapplication.R
+import com.example.myapplication.domain.model.MenuItem
+import com.example.myapplication.ui.theme.BalooFont
 import com.example.myapplication.ui.theme.MyApplicationTheme
+import com.example.myapplication.ui.theme.UbuntuFont
 
 @Composable
 fun ConsumerHomeScreen(
-    modifier: Modifier = Modifier
-
-){
+    modifier: Modifier = Modifier,
+    onOpenMenu: () -> Unit = {}
+) {
     val ifalGreen = Color(0xFF2A9626)
     val alertYellowBg = Color.White
     val alertYellowBorder = Color(0xFFD0FAE5)
@@ -59,13 +59,20 @@ fun ConsumerHomeScreen(
     val dividerColor = Color(0xFFCAC9C9)
     val cardapioTitleColor = Color(0xFF777777)
 
+    val balooFont = BalooFont
+    val ubuntuFont = UbuntuFont
 
-    val balooFont = FontFamily(Font(R.font.baloo_thambi_extrabold))
-    val ubuntuFont = FontFamily(Font(R.font.ubuntu_regular))
-
+    val menuItems = listOf(
+        MenuItem("Pizza", "Massa, molho de tomate, queijo, pepperoni", dividerColor),
+        MenuItem("Bolo de Chocolate", "Farinha, açúcar, chocolate em pó, ovos, manteiga", dividerColor),
+        MenuItem("Sopa de Legumes", "Cenoura, batata, cebola, abobrinha, caldo de galinha", dividerColor),
+        MenuItem("Tacos", "Tortilhas, carne moída, alface, tomate, queijo", dividerColor),
+        MenuItem("Salada Caesar", "Alface, croutons, queijo parmesão, molho Caesar", dividerColor),
+        MenuItem("Espaguete à Carbonara", "Espaguete, ovos, queijo pecorino, pancetta, pimenta", dividerColor)
+    )
 
     Box(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
             .background(Color.White),
         contentAlignment = Alignment.Center
@@ -73,7 +80,7 @@ fun ConsumerHomeScreen(
         Box(
             modifier = Modifier
                 .width(360.dp)
-                .height(800.dp)
+                .fillMaxHeight()
                 .background(Color.White)
                 .padding(horizontal = 32.dp, vertical = 36.dp),
             contentAlignment = Alignment.TopCenter
@@ -101,7 +108,6 @@ fun ConsumerHomeScreen(
                         lineHeight = 28.sp
                     )
 
-
                     Row(
                         horizontalArrangement = Arrangement.spacedBy(16.dp),
                         verticalAlignment = Alignment.CenterVertically
@@ -120,16 +126,15 @@ fun ConsumerHomeScreen(
                             tint = Color.Black,
                             modifier = Modifier
                                 .size(26.dp)
-                                //.clickable { onOpenMenu() }
+                                .clickable { onOpenMenu() }
                         )
                     }
                 }
 
-
                 Column(
                     modifier = Modifier
                         .width(296.dp)
-                        .fillMaxHeight(),
+                        .weight(1f),
                     verticalArrangement = Arrangement.spacedBy(20.dp),
                     horizontalAlignment = Alignment.Start
                 ) {
@@ -158,7 +163,6 @@ fun ConsumerHomeScreen(
                             )
                         }
 
-
                         Column(
                             verticalArrangement = Arrangement.spacedBy(4.dp)
                         ) {
@@ -179,7 +183,6 @@ fun ConsumerHomeScreen(
                             )
                         }
                     }
-
 
                     Column(
                         modifier = Modifier
@@ -210,7 +213,6 @@ fun ConsumerHomeScreen(
                             )
                         }
 
-
                         Box(
                             modifier = Modifier
                                 .fillMaxWidth()
@@ -230,11 +232,10 @@ fun ConsumerHomeScreen(
                         }
                     }
 
-
                     Column(
                         modifier = Modifier
                             .width(296.dp)
-                            .fillMaxHeight(),
+                            .weight(1f),
                         verticalArrangement = Arrangement.spacedBy(12.dp),
                         horizontalAlignment = Alignment.Start
                     ) {
@@ -249,21 +250,10 @@ fun ConsumerHomeScreen(
                             textAlign = TextAlign.Start
                         )
 
-
-                        val menuItems = listOf(
-                            Triple("Pizza", "Massa, molho de tomate, queijo, pepperoni", dividerColor),
-                            Triple("Bolo de Chocolate", "Farinha, açúcar, chocolate em pó, ovos, manteiga", dividerColor),
-                            Triple("Sopa de Legumes", "Cenoura, batata, cebola, abobrinha, caldo de galinha", dividerColor),
-                            Triple("Tacos", "Tortilhas, carne moída, alface, tomate, queijo", dividerColor),
-                            Triple("Salada Caesar", "Alface, croutons, queijo parmesão, molho Caesar", dividerColor),
-                            Triple("Espaguete à Carbonara", "Espaguete, ovos, queijo pecorino, pancetta, pimenta", dividerColor)
-                        )
-
-
                         LazyColumn(
                             modifier = Modifier
                                 .width(296.dp)
-                                .fillMaxHeight(),
+                                .weight(1f),
                             verticalArrangement = Arrangement.spacedBy(12.dp),
                             horizontalAlignment = Alignment.Start
                         ) {
@@ -283,7 +273,7 @@ fun ConsumerHomeScreen(
                                             verticalArrangement = Arrangement.spacedBy(2.dp)
                                         ) {
                                             Text(
-                                                text = item.first,
+                                                text = item.name,
                                                 fontFamily = ubuntuFont,
                                                 fontSize = 14.sp,
                                                 fontWeight = FontWeight.Normal,
@@ -291,7 +281,7 @@ fun ConsumerHomeScreen(
                                                 lineHeight = 14.sp
                                             )
                                             Text(
-                                                text = item.second,
+                                                text = item.description,
                                                 fontFamily = ubuntuFont,
                                                 fontSize = 11.sp,
                                                 fontWeight = FontWeight.Normal,
@@ -299,7 +289,6 @@ fun ConsumerHomeScreen(
                                                 maxLines = 1
                                             )
                                         }
-
 
                                         Icon(
                                             imageVector = Icons.Default.FavoriteBorder,
@@ -311,15 +300,13 @@ fun ConsumerHomeScreen(
                                         )
                                     }
 
-
                                     Spacer(modifier = Modifier.height(8.dp))
-
 
                                     Box(
                                         modifier = Modifier
                                             .fillMaxWidth()
                                             .height(2.dp)
-                                            .background(item.third)
+                                            .background(item.dividerColor)
                                     )
                                 }
                             }
@@ -333,9 +320,8 @@ fun ConsumerHomeScreen(
 
 @Preview
 @Composable
-private fun ConsumerHomeScreenPreview(){
-    MyApplicationTheme() {
+private fun ConsumerHomeScreenPreview() {
+    MyApplicationTheme {
         ConsumerHomeScreen()
     }
-
 }

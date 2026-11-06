@@ -1,4 +1,4 @@
-package com.example.myapplication.ui.screen
+package com.example.myapplication.screen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -12,37 +12,32 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.myapplication.R
+import com.example.myapplication.ui.theme.BalooFont
 import com.example.myapplication.ui.theme.MyApplicationTheme
+import com.example.myapplication.ui.theme.UbuntuFont
 
 @Composable
 fun SelectionContextScreen(
     modifier: Modifier = Modifier,
-    onClickContext: () -> Unit
-
-){
+    onClickContext: () -> Unit = {}
+) {
     val ifalGreen = Color(0xFF2A9626)
     val subtitleColor = Color(0xFF364153)
 
-
-    val balooFont = FontFamily(Font(R.font.baloo_thambi_extrabold))
-    val ubuntuFont = FontFamily(Font(R.font.ubuntu_regular))
-
+    val balooFont = BalooFont
+    val ubuntuFont = UbuntuFont
 
     Box(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
             .background(Color.White),
         contentAlignment = Alignment.Center
@@ -67,7 +62,6 @@ fun SelectionContextScreen(
                     lineHeight = 32.sp
                 )
 
-
                 Text(
                     text = "Modo de demonstração da Etapa 01",
                     fontFamily = ubuntuFont,
@@ -77,7 +71,6 @@ fun SelectionContextScreen(
                     lineHeight = 16.sp
                 )
             }
-
 
             Column(
                 modifier = Modifier.fillMaxWidth(),
@@ -97,9 +90,7 @@ fun SelectionContextScreen(
                         color = Color.Black,
                         lineHeight = 22.sp,
                         style = MaterialTheme.typography.titleLarge
-
                     )
-
 
                     Text(
                         text = "Selecione o perfil que será demonstrado.",
@@ -111,44 +102,45 @@ fun SelectionContextScreen(
                     )
                 }
 
-
                 Column(
                     modifier = Modifier.fillMaxWidth(),
                     verticalArrangement = Arrangement.spacedBy(12.dp),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    Button(onClick = {onClickContext},
-                       modifier = Modifier.fillMaxWidth(),
-                        shape = RoundedCornerShape(8.dp),
-                        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF62B25F))
-                    ){
-                        Text (text = "Consumidor")
-                    }
-                    Button(onClick = {},
+                    Button(
+                        onClick = { onClickContext() },
                         modifier = Modifier.fillMaxWidth(),
                         shape = RoundedCornerShape(8.dp),
                         colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF62B25F))
-                    ){
-                        Text (text = "Administração")
+                    ) {
+                        Text(text = "Consumidor")
                     }
-                    Button(onClick = {},
+                    Button(
+                        onClick = {},
                         modifier = Modifier.fillMaxWidth(),
                         shape = RoundedCornerShape(8.dp),
                         colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF62B25F))
-                    ){
-                        Text (text = "Cantina")
+                    ) {
+                        Text(text = "Administração")
                     }
-
+                    Button(
+                        onClick = {},
+                        modifier = Modifier.fillMaxWidth(),
+                        shape = RoundedCornerShape(8.dp),
+                        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF62B25F))
+                    ) {
+                        Text(text = "Cantina")
+                    }
                 }
             }
         }
     }
 }
+
 @Preview
 @Composable
-private fun SelectionContextScreenPreview(){
-    MyApplicationTheme{
+private fun SelectionContextScreenPreview() {
+    MyApplicationTheme {
         SelectionContextScreen(onClickContext = {})
     }
-
 }
